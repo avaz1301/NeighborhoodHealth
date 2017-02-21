@@ -1,0 +1,40 @@
+#app{
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(
+          rgba(0, 0, 0, 0.3),
+          rgba(0, 0, 0, 0.3)
+  ),
+  url(http://i.imgur.com/sv3QD.jpg) fixed;
+  background-size: cover;
+  color: #fffef2;
+  z-index: 1;
+  position: relative;
+}
+
+#header{
+  height: 450px;
+}
+
+#header .container:first-child{
+  padding-top: 75px;
+}
+
+#map-parent{
+  color: #FFF;
+  background: linear-gradient(
+          rgba(0, 0, 0, 0.4),
+          rgba(0, 0, 0, 0.4)
+  );
+  height: 500px;
+}
+
+#mapid { height: 360px; }
+
+#searchHistory{
+  list-style: none;
+  padding: 0;
+}
+
+#searchHistory a{
+  color: #FFFFFF;
+}
