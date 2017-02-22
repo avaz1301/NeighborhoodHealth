@@ -1,19 +1,21 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import {fetchCoords} from '../actions/index';
 import {Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
-export default class SearchForm extends Component{
+class SearchForm extends Component{
   constructor(props){
     super(props);
 
-    this.state = {value : ''};
+    this.state = {term : ''};
 
     this.onInputChange = this.onInputChange.bind(this);
     this.getValidationState = this.getValidationState.bind(this);
-    // this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   getValidationState(){
-    const len = this.state.value.length;
+    const len = this.state.term.length;
     if(len > 5) return 'success';
     else if(len > 3) return 'warning';
     else if(len > 0) return 'error';
@@ -21,20 +23,26 @@ export default class SearchForm extends Component{
   }
 
   onInputChange(e){
-    this.setState({value: e.target.value});
+    this.setState({term: e.target.value});
+  }
+
+  onFormSubmit(e){
+    e.preventDefault();
+    console.log(this.state.term);
+    this.props.fetchCoords(this.state.term);
+    this.setState({term:''});
   }
 
   render(){
-    // onSubmit={handleSubmit(this.onSubmit.bind(this))}
     return(
-      <form>
+      <form onSubmit={this.onFormSubmit}>
         <FormGroup
           controlId="formbasicText"
           validationState={this.getValidationState()}>
           <ControlLabel>Enter Your Neighborhood</ControlLabel>
           <FormControl
             type="text"
-            value={this.state.value}
+            value={this.state.term}
             placeholder="Jackson Heights"
             onChange={this.onInputChange}
           />
@@ -47,3 +55,5 @@ export default class SearchForm extends Component{
     );
   }
 }
+
+export default connect(null, {fetchCoords: fetchCoords})(SearchForm);

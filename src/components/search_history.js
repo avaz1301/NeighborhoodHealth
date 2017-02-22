@@ -1,36 +1,21 @@
 import React, {Component} from 'react';
+import {fetchCoords} from '../actions/index';
+import { connect } from 'react-redux';
 
-export default class SearchHistory extends Component{
+class SearchHistory extends Component{
   constructor(props){
     super(props);
-
-    this.state = {
-      searches : [
-        {
-          id: 0,
-          name: "Jackson Heights"
-        },
-        {
-          id: 1,
-          name: "Elmhurst"
-        },
-        {
-          id: 2,
-          name: "Corona"
-        },
-        {
-          id: 3,
-          name: "Williamsburg"
-        }
-      ]
-    };
+    this.state = {id: 0};
     this.renderList = this.renderList.bind(this);
   }
 
   renderList(){
-    console.log(this.state.searches);
-    return this.state.searches.map((search) => {
-      return <li key={search.id}><a href="#">{search.name}</a></li>;
+    if(this.props.searches.length===0){
+      return <li>No recent searches</li>
+    }
+    console.log(this.props.searches);
+    return this.props.searches.map((search) => {
+      return <li key={this.state.id++}><a href="#">{search}</a></li>;
     });
   }
 
@@ -44,5 +29,10 @@ export default class SearchHistory extends Component{
       </div>
     );
   }
-
 }
+
+function mapStateToProps(state){
+  return {searches : state.search.searches}
+}
+
+export default connect(mapStateToProps, {fetchCoords:fetchCoords})(SearchHistory);
