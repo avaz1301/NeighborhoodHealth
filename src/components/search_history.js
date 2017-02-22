@@ -32,6 +32,7 @@ class SearchHistory extends Component{
 }
 
 function mapStateToProps(state){
+  console.log("STATE: "+JSON.stringify(state));
   return {searches : state.search.searches}
 }
 

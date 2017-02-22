@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {fetchCoords} from '../actions/index';
+import {updateList} from '../actions/index';
 import {Button, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
 class SearchForm extends Component{
@@ -29,6 +30,7 @@ class SearchForm extends Component{
   onFormSubmit(e){
     e.preventDefault();
     console.log(this.state.term);
+    this.props.updateList(this.state.term);
     this.props.fetchCoords(this.state.term);
     this.setState({term:''});
   }
@@ -56,4 +58,4 @@ class SearchForm extends Component{
   }
 }
 
-export default connect(null, {fetchCoords: fetchCoords})(SearchForm);
+export default connect(null, {fetchCoords: fetchCoords, updateList: updateList})(SearchForm);
